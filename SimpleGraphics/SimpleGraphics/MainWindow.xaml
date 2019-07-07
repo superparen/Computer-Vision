@@ -1,0 +1,167 @@
+﻿<Window x:Class="SimpleGraphics.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleGraphics"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <local:PointView/>
+    </Window.DataContext>
+    <Window.Resources>
+        <local:PointToXConverter x:Key="xConverter"/>
+        <local:PointToYConverter x:Key="yConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <GroupBox Header="Rotate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="x:" Margin="5, 0, 5, 0" Grid.Column="0"/>
+                    <TextBox Text="{Binding RotateVector[0]}" Grid.Column="1"/>
+                    <TextBlock Text="y:" Margin="5, 0, 5, 0" Grid.Column="2"/>
+                    <TextBox Text="{Binding RotateVector[1]}" Grid.Column="3"/>
+                    <TextBlock Text="z:" Margin="5, 0, 5, 0" Grid.Column="4"/>
+                    <TextBox Text="{Binding RotateVector[2]}" Grid.Column="5"/>
+                    <Button Content="Rotate" Command="{Binding RotateCommand}" Grid.Row="1" Grid.ColumnSpan="6" Margin="0, 5, 0, 5"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Scaling">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="x:" Margin="5, 0, 5, 0" Grid.Column="0"/>
+                    <TextBox Text="{Binding ScalingVector[0]}" Grid.Column="1"/>
+                    <TextBlock Text="y:" Margin="5, 0, 5, 0" Grid.Column="2"/>
+                    <TextBox Text="{Binding ScalingVector[1]}" Grid.Column="3"/>
+                    <TextBlock Text="z:" Margin="5, 0, 5, 0" Grid.Column="4"/>
+                    <TextBox Text="{Binding ScalingVector[2]}" Grid.Column="5"/>
+                    <Button Content="Scale" Command="{Binding ScaleCommand}" Grid.Row="1" Grid.ColumnSpan="6" Margin="0, 5, 0, 5"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Translation">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="x:" Margin="5, 0, 5, 0" Grid.Column="0"/>
+                    <TextBox Text="{Binding TranslationVector[0]}" Grid.Column="1"/>
+                    <TextBlock Text="y:" Margin="5, 0, 5, 0" Grid.Column="2"/>
+                    <TextBox Text="{Binding TranslationVector[1]}" Grid.Column="3"/>
+                    <TextBlock Text="z:" Margin="5, 0, 5, 0" Grid.Column="4"/>
+                    <TextBox Text="{Binding TranslationVector[2]}" Grid.Column="5"/>
+                    <Button Content="Translation" Command="{Binding TranslationCommand}" Grid.Row="1" Grid.ColumnSpan="6" Margin="0, 5, 0, 5"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Perspective">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="x:" Margin="5, 0, 5, 0" Grid.Column="0"/>
+                    <TextBox Text="{Binding PerspectiveVector[0]}" Grid.Column="1"/>
+                    <TextBlock Text="y:" Margin="5, 0, 5, 0" Grid.Column="2"/>
+                    <TextBox Text="{Binding PerspectiveVector[1]}" Grid.Column="3"/>
+                    <TextBlock Text="z:" Margin="5, 0, 5, 0" Grid.Column="4"/>
+                    <TextBox Text="{Binding PerspectiveVector[2]}" Grid.Column="5"/>
+                    <Button Content="Perspective" Command="{Binding PerspectiveCommand}" Grid.Row="1" Grid.ColumnSpan="6" Margin="0, 5, 0, 5"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Proections">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Content="Isometric" Margin="5" Command="{Binding IsometricCommand}"/>
+                    <Button Grid.Column="1" Content="Oblique" Margin="5" Command="{Binding ObliqueCommand}"/>
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+        <Grid Grid.Column="1" Background="AliceBlue">
+            <!--<Polyline Grid.Column="1" Points="{Binding Points, Converter={StaticResource converter}}" Stroke="Blue"/>
+            <Polyline Grid.Column="1" Points="{Binding Coordinates, Converter={StaticResource converter}}" Stroke="Black"/>
+            <Polyline Grid.Column="1" Points="{Binding MoveLine, Converter={StaticResource converter}}" Stroke="Red"/> !-->
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[0], Converter={StaticResource xConverter}}" Y1="{Binding Points[0], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[1], Converter={StaticResource xConverter}}" Y2="{Binding Points[1], Converter={StaticResource yConverter}}"/>
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[1], Converter={StaticResource xConverter}}" Y1="{Binding Points[1], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[2], Converter={StaticResource xConverter}}" Y2="{Binding Points[2], Converter={StaticResource yConverter}}"/>
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[2], Converter={StaticResource xConverter}}" Y1="{Binding Points[2], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[3], Converter={StaticResource xConverter}}" Y2="{Binding Points[3], Converter={StaticResource yConverter}}"/>
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[3], Converter={StaticResource xConverter}}" Y1="{Binding Points[3], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[0], Converter={StaticResource xConverter}}" Y2="{Binding Points[0], Converter={StaticResource yConverter}}"/>
+            
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[4], Converter={StaticResource xConverter}}" Y1="{Binding Points[4], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[5], Converter={StaticResource xConverter}}" Y2="{Binding Points[5], Converter={StaticResource yConverter}}"/>
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[5], Converter={StaticResource xConverter}}" Y1="{Binding Points[5], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[6], Converter={StaticResource xConverter}}" Y2="{Binding Points[6], Converter={StaticResource yConverter}}"/>
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[6], Converter={StaticResource xConverter}}" Y1="{Binding Points[6], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[7], Converter={StaticResource xConverter}}" Y2="{Binding Points[7], Converter={StaticResource yConverter}}"/>
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[7], Converter={StaticResource xConverter}}" Y1="{Binding Points[7], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[4], Converter={StaticResource xConverter}}" Y2="{Binding Points[4], Converter={StaticResource yConverter}}"/>
+
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[0], Converter={StaticResource xConverter}}" Y1="{Binding Points[0], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[4], Converter={StaticResource xConverter}}" Y2="{Binding Points[4], Converter={StaticResource yConverter}}"/>
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[5], Converter={StaticResource xConverter}}" Y1="{Binding Points[5], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[1], Converter={StaticResource xConverter}}" Y2="{Binding Points[1], Converter={StaticResource yConverter}}"/>
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[6], Converter={StaticResource xConverter}}" Y1="{Binding Points[6], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[2], Converter={StaticResource xConverter}}" Y2="{Binding Points[2], Converter={StaticResource yConverter}}"/>
+            <Line Grid.Column="1" Stroke="Blue" X1="{Binding Points[7], Converter={StaticResource xConverter}}" Y1="{Binding Points[7], Converter={StaticResource yConverter}}"
+                  X2="{Binding Points[3], Converter={StaticResource xConverter}}" Y2="{Binding Points[3], Converter={StaticResource yConverter}}"/>
+
+            <Line Grid.Column="1" Stroke="Black" X1="{Binding Coordinates[0], Converter={StaticResource xConverter}}" Y1="{Binding Coordinates[0], Converter={StaticResource yConverter}}"
+                  X2="{Binding Coordinates[1], Converter={StaticResource xConverter}}" Y2="{Binding Coordinates[1], Converter={StaticResource yConverter}}"/>
+            <Line Grid.Column="1" Stroke="Black" X1="{Binding Coordinates[0], Converter={StaticResource xConverter}}" Y1="{Binding Coordinates[0], Converter={StaticResource yConverter}}"
+                  X2="{Binding Coordinates[2], Converter={StaticResource xConverter}}" Y2="{Binding Coordinates[2], Converter={StaticResource yConverter}}"/>
+            <Line Grid.Column="1" Stroke="Black" X1="{Binding Coordinates[0], Converter={StaticResource xConverter}}" Y1="{Binding Coordinates[0], Converter={StaticResource yConverter}}"
+                  X2="{Binding Coordinates[3], Converter={StaticResource xConverter}}" Y2="{Binding Coordinates[3], Converter={StaticResource yConverter}}"/>
+
+            <Line Grid.Column="1" Stroke="Red" X1="{Binding MoveLine[0], Converter={StaticResource xConverter}}" Y1="{Binding MoveLine[0], Converter={StaticResource yConverter}}"
+                  X2="{Binding MoveLine[1], Converter={StaticResource xConverter}}" Y2="{Binding MoveLine[1], Converter={StaticResource yConverter}}"/>
+        </Grid>
+    </Grid>
+</Window>
